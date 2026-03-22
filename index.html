@@ -65,6 +65,8 @@
     
     .particle {
       position: absolute;
+      width: var(--particle-size, 3px);
+      height: var(--particle-size, 3px);
       background: var(--accent);
       border-radius: 50%;
       opacity: 0.6;
@@ -323,19 +325,6 @@
     
     .select:hover {
       border-color: var(--accent);
-    }
-
-    .slider-container {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 200px;
-    }
-
-    .slider-label {
-      font-size: 12px;
-      color: var(--text-secondary);
-      text-align: center;
     }
     
     .keymap-input {
@@ -690,36 +679,10 @@
       opacity: 1;
     }
     
-    .album-art img, .album-art video {
+    .album-art img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .media-switch {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 8px 12px;
-      color: white;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
-      display: none;
-    }
-
-    .media-switch:hover {
-      background: rgba(99, 102, 241, 0.8);
-      transform: scale(1.05);
-    }
-
-    .media-switch.show {
-      display: block;
     }
     
     .visualizer-container {
@@ -768,20 +731,6 @@
       min-height: 4px;
       border-radius: 2px;
     }
-
-    .visualizer.wave .visualizer-bar {
-      border-radius: 50%;
-    }
-
-    .visualizer.spectrum {
-      justify-content: center;
-      gap: 1px;
-    }
-
-    .visualizer.spectrum .visualizer-bar {
-      background: linear-gradient(to top, #ff0080, #ff8c00, #40e0d0);
-      box-shadow: 0 0 15px currentColor;
-    }
     
     .track-info h2 {
       font-size: 24px;
@@ -796,106 +745,6 @@
     .track-info p {
       color: var(--text-secondary);
       font-size: 14px;
-    }
-
-    .equalizer-section {
-      width: 100%;
-      max-width: 600px;
-      margin: 16px auto 0;
-      padding: 16px;
-      background: var(--bg-tertiary);
-      border-radius: 12px;
-      display: none;
-    }
-
-    .equalizer-section.show {
-      display: block;
-    }
-
-    .equalizer-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .equalizer-controls {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .eq-band {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .eq-slider {
-      -webkit-appearance: slider-vertical;
-      width: 8px;
-      height: 100px;
-      background: var(--bg-primary);
-      border-radius: 4px;
-      outline: none;
-    }
-
-    .eq-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--accent);
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.6);
-    }
-
-    .eq-label {
-      font-size: 11px;
-      color: var(--text-secondary);
-      text-align: center;
-    }
-
-    .effects-section {
-      width: 100%;
-      max-width: 600px;
-      margin: 16px auto 0;
-      padding: 16px;
-      background: var(--bg-tertiary);
-      border-radius: 12px;
-      display: none;
-    }
-
-    .effects-section.show {
-      display: block;
-    }
-
-    .effects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .effect-control {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .effect-label {
-      font-size: 12px;
-      color: var(--text-secondary);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .effect-value {
-      color: var(--accent);
-      font-weight: 600;
     }
     
     .progress-section {
@@ -1238,10 +1087,6 @@
       .header h1 {
         font-size: 36px;
       }
-
-      .equalizer-controls {
-        grid-template-columns: repeat(3, 1fr);
-      }
     }
     
     @media (max-width: 640px) {
@@ -1275,14 +1120,6 @@
         width: 56px;
         height: 56px;
         font-size: 22px;
-      }
-
-      .equalizer-controls {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .effects-grid {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1339,28 +1176,6 @@
           </div>
 
           <div class="setting-item">
-            <div style="flex: 1;">
-              <div class="setting-label" id="labelParticleCount">particle count</div>
-              <div class="setting-description" id="descParticleCount">number of particles (10-200)</div>
-            </div>
-            <div class="slider-container">
-              <input type="range" id="particleCountSlider" min="10" max="200" value="50" style="width: 100%;">
-              <div class="slider-label"><span id="particleCountValue">50</span> particles</div>
-            </div>
-          </div>
-
-          <div class="setting-item">
-            <div style="flex: 1;">
-              <div class="setting-label" id="labelParticleSize">particle size</div>
-              <div class="setting-description" id="descParticleSize">size and glow intensity</div>
-            </div>
-            <div class="slider-container">
-              <input type="range" id="particleSizeSlider" min="1" max="10" value="3" style="width: 100%;">
-              <div class="slider-label"><span id="particleSizeValue">3</span>px</div>
-            </div>
-          </div>
-
-          <div class="setting-item">
             <div>
               <div class="setting-label" id="labelVisualizer">visualizer type</div>
               <div class="setting-description" id="descVisualizer">audio visualizer style</div>
@@ -1369,7 +1184,6 @@
               <option value="bars">bars</option>
               <option value="circular">circular</option>
               <option value="wave">wave</option>
-              <option value="spectrum">spectrum</option>
             </select>
           </div>
         </div>
@@ -1387,26 +1201,26 @@
 
           <div class="setting-item">
             <div>
-              <div class="setting-label" id="labelNormalize">volume normalization</div>
-              <div class="setting-description" id="descNormalize">equalize volume across tracks</div>
+              <div class="setting-label" id="labelParticleCount">particle count</div>
+              <div class="setting-description" id="descParticleCount">number of particles in background</div>
             </div>
-            <div class="toggle-switch" id="normalizeToggle"></div>
+            <input type="range" id="particleCountSlider" class="select" min="0" max="200" value="50" style="width: 150px;">
           </div>
 
           <div class="setting-item">
             <div>
-              <div class="setting-label" id="labelEqualizer">equalizer</div>
-              <div class="setting-description" id="descEqualizer">show audio equalizer controls</div>
+              <div class="setting-label" id="labelParticleSize">particle size</div>
+              <div class="setting-description" id="descParticleSize">size of particles in pixels</div>
             </div>
-            <div class="toggle-switch" id="equalizerToggle"></div>
+            <input type="range" id="particleSizeSlider" class="select" min="1" max="10" value="3" style="width: 150px;">
           </div>
 
           <div class="setting-item">
             <div>
-              <div class="setting-label" id="labelEffects">audio effects</div>
-              <div class="setting-description" id="descEffects">show audio effects controls</div>
+              <div class="setting-label" id="labelVisualizer">audio visualizer</div>
+              <div class="setting-description" id="descVisualizer">show visualizer during playback</div>
             </div>
-            <div class="toggle-switch" id="effectsToggle"></div>
+            <div class="toggle-switch" id="visualizerToggle"></div>
           </div>
         </div>
 
@@ -1483,8 +1297,8 @@
         <div class="card">
           <div class="card-title" id="titleMyPlaylists">my playlists</div>
           <div class="action-buttons" style="margin-bottom: 16px;">
-            <button id="editListBtn" class="btn btn-secondary btn-small">edit</button>
-            <button id="deleteListBtn" class="btn btn-danger btn-small">delete</button>
+            <button id="editListBtn" class="btn btn-secondary btn-small" data-i18n="btnEdit">edit</button>
+            <button id="deleteListBtn" class="btn btn-danger btn-small" data-i18n="btnDelete">delete</button>
           </div>
           <div id="listsContainer" class="playlist-list"></div>
           
@@ -1502,9 +1316,9 @@
               <input id="editFiles" class="input file-input" type="file" accept="audio/*,video/*" multiple>
             </div>
             <div class="action-buttons">
-              <button id="saveEditBtn" class="btn btn-primary btn-small">save</button>
-              <button id="cancelEditBtn" class="btn btn-secondary btn-small">cancel</button>
-              <button id="cleanupBtn" class="btn btn-danger btn-small">cleanup</button>
+              <button id="saveEditBtn" class="btn btn-primary btn-small" data-i18n="btnSave">save</button>
+              <button id="cancelEditBtn" class="btn btn-secondary btn-small" data-i18n="btnCancel">cancel</button>
+              <button id="cleanupBtn" class="btn btn-danger btn-small" data-i18n="btnCleanup">cleanup</button>
             </div>
           </div>
         </div>
@@ -1514,9 +1328,7 @@
         <div class="card">
           <div class="now-playing">
             <div class="album-art">
-              <img id="coverImg" src="" alt="cover" style="display: none;" />
-              <video id="videoPlayer" style="display: none;" muted loop></video>
-              <button class="media-switch" id="mediaSwitch">🎬 show video</button>
+              <img id="coverImg" src="" alt="cover" />
               <div class="visualizer-container">
                 <div class="visualizer" id="visualizer"></div>
               </div>
@@ -1525,72 +1337,6 @@
             <div class="track-info">
               <h2 id="nowTitle">select a playlist</h2>
               <p id="nowMeta">&nbsp;</p>
-            </div>
-
-            <div class="equalizer-section" id="equalizerSection">
-              <div class="equalizer-title">
-                <span>🎚️ <span id="eqTitle">equalizer</span></span>
-                <button class="btn btn-secondary btn-small" id="eqReset">reset</button>
-              </div>
-              <div class="equalizer-controls">
-                <div class="eq-band">
-                  <input type="range" class="eq-slider" id="eq60" min="-12" max="12" value="0" orient="vertical">
-                  <span class="eq-label">60Hz</span>
-                </div>
-                <div class="eq-band">
-                  <input type="range" class="eq-slider" id="eq170" min="-12" max="12" value="0" orient="vertical">
-                  <span class="eq-label">170Hz</span>
-                </div>
-                <div class="eq-band">
-                  <input type="range" class="eq-slider" id="eq350" min="-12" max="12" value="0" orient="vertical">
-                  <span class="eq-label">350Hz</span>
-                </div>
-                <div class="eq-band">
-                  <input type="range" class="eq-slider" id="eq1000" min="-12" max="12" value="0" orient="vertical">
-                  <span class="eq-label">1kHz</span>
-                </div>
-                <div class="eq-band">
-                  <input type="range" class="eq-slider" id="eq3500" min="-12" max="12" value="0" orient="vertical">
-                  <span class="eq-label">3.5kHz</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="effects-section" id="effectsSection">
-              <div class="equalizer-title">
-                <span>✨ <span id="fxTitle">audio effects</span></span>
-                <button class="btn btn-secondary btn-small" id="fxReset">reset</button>
-              </div>
-              <div class="effects-grid">
-                <div class="effect-control">
-                  <div class="effect-label">
-                    <span id="fxReverbLabel">reverb</span>
-                    <span class="effect-value" id="reverbValue">0%</span>
-                  </div>
-                  <input type="range" id="reverbSlider" min="0" max="100" value="0">
-                </div>
-                <div class="effect-control">
-                  <div class="effect-label">
-                    <span id="fxDelayLabel">delay</span>
-                    <span class="effect-value" id="delayValue">0%</span>
-                  </div>
-                  <input type="range" id="delaySlider" min="0" max="100" value="0">
-                </div>
-                <div class="effect-control">
-                  <div class="effect-label">
-                    <span id="fxDistortionLabel">distortion</span>
-                    <span class="effect-value" id="distortionValue">0</span>
-                  </div>
-                  <input type="range" id="distortionSlider" min="0" max="100" value="0">
-                </div>
-                <div class="effect-control">
-                  <div class="effect-label">
-                    <span id="fxBassBoostLabel">bass boost</span>
-                    <span class="effect-value" id="bassBoostValue">0dB</span>
-                  </div>
-                  <input type="range" id="bassBoostSlider" min="0" max="20" value="0">
-                </div>
-              </div>
             </div>
 
             <div class="progress-section">
@@ -1620,7 +1366,7 @@
             <div class="controls">
               <button id="shuffleBtn" class="control-btn" title="shuffle">🔀</button>
               <button id="prevBtn" class="control-btn" title="previous">⏮️</button>
-              <button id="playBtn" class="control-btn play" title="play/pause">▶</button>
+              <button id="playBtn" class="control-btn play" title="play/Pause">▶</button>
               <button id="nextBtn" class="control-btn" title="next">⏭️</button>
               <button id="repeatOneBtn" class="control-btn" title="repeat one">🔁</button>
               <button id="loopListBtn" class="control-btn" title="loop playlist">🔂</button>
@@ -1663,25 +1409,20 @@ const translations = {
     descDarkMode: "toggle between light and dark mode",
     labelParticles: "particle effects",
     descParticles: "floating particles in the background",
-    labelParticleCount: "particle count",
-    descParticleCount: "number of particles (10-200)",
-    labelParticleSize: "particle size",
-    descParticleSize: "size and glow intensity",
     labelVisualizer: "visualizer type",
     descVisualizer: "audio visualizer style",
     visualizerBars: "bars",
     visualizerCircular: "circular",
     visualizerWave: "wave",
-    visualizerSpectrum: "spectrum",
     sectionAudio: "🔊 audio",
     labelCrossfade: "crossfade",
     descCrossfade: "smooth transition between songs (3s)",
-    labelNormalize: "volume normalization",
-    descNormalize: "equalize volume across tracks",
-    labelEqualizer: "equalizer",
-    descEqualizer: "show audio equalizer controls",
-    labelEffects: "audio effects",
-    descEffects: "show audio effects controls",
+    labelParticleCount: "particle count",
+    descParticleCount: "number of particles in background",
+    labelParticleSize: "particle size",
+    descParticleSize: "size of particles in pixels",
+    labelVisualizer: "audio visualizer",
+    descVisualizer: "show visualizer during playback",
     sectionKeyboard: "⌨️ keyboard shortcuts",
     labelKeyPlayPause: "play / pause",
     labelKeyPrev: "previous song",
@@ -1726,15 +1467,7 @@ const translations = {
     alertCleanupComplete: "cleanup completed",
     promptRename: "new name",
     keySpace: "space",
-    pressKey: "press a key...",
-    showVideo: "🎬 show video",
-    showCover: "🖼️ show cover",
-    eqTitle: "equalizer",
-    fxTitle: "audio effects",
-    fxReverbLabel: "reverb",
-    fxDelayLabel: "delay",
-    fxDistortionLabel: "distortion",
-    fxBassBoostLabel: "bass boost"
+    pressKey: "press a key..."
   },
   es: {
     appTitle: "YBMP, por gal",
@@ -1748,25 +1481,20 @@ const translations = {
     descDarkMode: "alternar entre modo claro y oscuro",
     labelParticles: "efectos de partículas",
     descParticles: "partículas flotantes en el fondo",
-    labelParticleCount: "cantidad de partículas",
-    descParticleCount: "número de partículas (10-200)",
-    labelParticleSize: "tamaño de partículas",
-    descParticleSize: "tamaño e intensidad del brillo",
     labelVisualizer: "tipo de visualizador",
     descVisualizer: "estilo del visualizador de audio",
     visualizerBars: "barras",
     visualizerCircular: "circular",
     visualizerWave: "onda",
-    visualizerSpectrum: "espectro",
     sectionAudio: "🔊 audio",
     labelCrossfade: "fundido cruzado",
     descCrossfade: "transición suave entre canciones (3s)",
-    labelNormalize: "normalización de volumen",
-    descNormalize: "igualar volumen entre pistas",
-    labelEqualizer: "ecualizador",
-    descEqualizer: "mostrar controles del ecualizador",
-    labelEffects: "efectos de audio",
-    descEffects: "mostrar controles de efectos",
+    labelParticleCount: "cantidad de partículas",
+    descParticleCount: "número de partículas en el fondo",
+    labelParticleSize: "tamaño de partículas",
+    descParticleSize: "tamaño de las partículas en píxeles",
+    labelVisualizer: "visualizador de audio",
+    descVisualizer: "mostrar visualizador durante la reproducción",
     sectionKeyboard: "⌨️ atajos de teclado",
     labelKeyPlayPause: "play / pausa",
     labelKeyPrev: "canción anterior",
@@ -1811,15 +1539,7 @@ const translations = {
     alertCleanupComplete: "limpieza completada",
     promptRename: "nuevo nombre",
     keySpace: "espacio",
-    pressKey: "presiona una tecla...",
-    showVideo: "🎬 mostrar video",
-    showCover: "🖼️ mostrar portada",
-    eqTitle: "ecualizador",
-    fxTitle: "efectos de audio",
-    fxReverbLabel: "reverberación",
-    fxDelayLabel: "retardo",
-    fxDistortionLabel: "distorsión",
-    fxBassBoostLabel: "refuerzo de graves"
+    pressKey: "presiona una tecla..."
   }
 };
 
@@ -1838,11 +1558,6 @@ let audioContext = null;
 let analyser = null;
 let dataArray = null;
 let animationId = null;
-let currentVideoUrl = null;
-let isShowingVideo = false;
-
-let eqFilters = [];
-let bassBoostFilter = null;
 
 let settings = {
   language: 'en',
@@ -1851,10 +1566,8 @@ let settings = {
   particleCount: 50,
   particleSize: 3,
   visualizerType: 'bars',
+  visualizerEnabled: true,
   crossfade: false,
-  normalize: false,
-  showEqualizer: false,
-  showEffects: false,
   keymap: {
     playpause: ' ',
     prev: 'ArrowLeft',
@@ -1885,10 +1598,6 @@ function updateLanguage() {
   document.getElementById('descDarkMode').textContent = t('descDarkMode');
   document.getElementById('labelParticles').textContent = t('labelParticles');
   document.getElementById('descParticles').textContent = t('descParticles');
-  document.getElementById('labelParticleCount').textContent = t('labelParticleCount');
-  document.getElementById('descParticleCount').textContent = t('descParticleCount');
-  document.getElementById('labelParticleSize').textContent = t('labelParticleSize');
-  document.getElementById('descParticleSize').textContent = t('descParticleSize');
   document.getElementById('labelVisualizer').textContent = t('labelVisualizer');
   document.getElementById('descVisualizer').textContent = t('descVisualizer');
   
@@ -1896,17 +1605,16 @@ function updateLanguage() {
   visualizerOptions[0].textContent = t('visualizerBars');
   visualizerOptions[1].textContent = t('visualizerCircular');
   visualizerOptions[2].textContent = t('visualizerWave');
-  visualizerOptions[3].textContent = t('visualizerSpectrum');
   
   document.getElementById('sectionAudio').textContent = t('sectionAudio');
   document.getElementById('labelCrossfade').textContent = t('labelCrossfade');
   document.getElementById('descCrossfade').textContent = t('descCrossfade');
-  document.getElementById('labelNormalize').textContent = t('labelNormalize');
-  document.getElementById('descNormalize').textContent = t('descNormalize');
-  document.getElementById('labelEqualizer').textContent = t('labelEqualizer');
-  document.getElementById('descEqualizer').textContent = t('descEqualizer');
-  document.getElementById('labelEffects').textContent = t('labelEffects');
-  document.getElementById('descEffects').textContent = t('descEffects');
+  document.getElementById('labelParticleCount').textContent = t('labelParticleCount');
+  document.getElementById('descParticleCount').textContent = t('descParticleCount');
+  document.getElementById('labelParticleSize').textContent = t('labelParticleSize');
+  document.getElementById('descParticleSize').textContent = t('descParticleSize');
+  document.getElementById('labelVisualizer').textContent = t('labelVisualizer');
+  document.getElementById('descVisualizer').textContent = t('descVisualizer');
   document.getElementById('sectionKeyboard').textContent = t('sectionKeyboard');
   document.getElementById('labelKeyPlayPause').textContent = t('labelKeyPlayPause');
   document.getElementById('labelKeyPrev').textContent = t('labelKeyPrev');
@@ -1934,18 +1642,11 @@ function updateLanguage() {
   document.getElementById('titleTracks').textContent = t('titleTracks');
   document.getElementById('searchInput').placeholder = t('placeholderSearch');
   document.getElementById('footer').textContent = t('footer');
-  document.getElementById('eqTitle').textContent = t('eqTitle');
-  document.getElementById('fxTitle').textContent = t('fxTitle');
-  document.getElementById('fxReverbLabel').textContent = t('fxReverbLabel');
-  document.getElementById('fxDelayLabel').textContent = t('fxDelayLabel');
-  document.getElementById('fxDistortionLabel').textContent = t('fxDistortionLabel');
-  document.getElementById('fxBassBoostLabel').textContent = t('fxBassBoostLabel');
   
   if (!currentPlaylist) {
     document.getElementById('nowTitle').textContent = t('selectPlaylist');
   }
   
-  updateMediaSwitch();
   renderLists();
   renderPlaylist();
 }
@@ -1969,7 +1670,9 @@ function applySettings() {
   const particlesEl = document.getElementById('particles');
   if (settings.particles) {
     particlesEl.classList.add('active');
-    createParticles();
+    if (particlesEl.children.length === 0) {
+      createParticles();
+    }
   } else {
     particlesEl.classList.remove('active');
   }
@@ -1977,21 +1680,21 @@ function applySettings() {
   const visualizer = document.getElementById('visualizer');
   visualizer.className = 'visualizer ' + settings.visualizerType;
   
-  document.getElementById('equalizerSection').classList.toggle('show', settings.showEqualizer);
-  document.getElementById('effectsSection').classList.toggle('show', settings.showEffects);
+  const visualizerContainer = document.querySelector('.visualizer-container');
+  if (visualizerContainer) {
+    visualizerContainer.style.display = settings.visualizerEnabled ? 'block' : 'none';
+  }
+  
+  document.documentElement.style.setProperty('--particle-size', settings.particleSize + 'px');
   
   document.getElementById('darkModeToggle').classList.toggle('active', settings.darkMode);
   document.getElementById('particlesToggle').classList.toggle('active', settings.particles);
   document.getElementById('crossfadeToggle').classList.toggle('active', settings.crossfade);
-  document.getElementById('normalizeToggle').classList.toggle('active', settings.normalize);
-  document.getElementById('equalizerToggle').classList.toggle('active', settings.showEqualizer);
-  document.getElementById('effectsToggle').classList.toggle('active', settings.showEffects);
-  document.getElementById('visualizerType').value = settings.visualizerType;
-  document.getElementById('languageSelect').value = settings.language;
+  document.getElementById('visualizerToggle').classList.toggle('active', settings.visualizerEnabled);
   document.getElementById('particleCountSlider').value = settings.particleCount;
   document.getElementById('particleSizeSlider').value = settings.particleSize;
-  document.getElementById('particleCountValue').textContent = settings.particleCount;
-  document.getElementById('particleSizeValue').textContent = settings.particleSize;
+  document.getElementById('visualizerType').value = settings.visualizerType;
+  document.getElementById('languageSelect').value = settings.language;
   
   document.getElementById('key-playpause').value = settings.keymap.playpause === ' ' ? t('keySpace') : settings.keymap.playpause;
   document.getElementById('key-prev').value = settings.keymap.prev;
@@ -2017,8 +1720,6 @@ const cancelEditBtn = document.getElementById('cancelEditBtn');
 const cleanupBtn = document.getElementById('cleanupBtn');
 
 const coverImg = document.getElementById('coverImg');
-const videoPlayer = document.getElementById('videoPlayer');
-const mediaSwitch = document.getElementById('mediaSwitch');
 const nowTitle = document.getElementById('nowTitle');
 const nowMeta = document.getElementById('nowMeta');
 const playBtn = document.getElementById('playBtn');
@@ -2079,7 +1780,9 @@ document.getElementById('particlesToggle').addEventListener('click', function() 
   const particlesEl = document.getElementById('particles');
   if (settings.particles) {
     particlesEl.classList.add('active');
-    createParticles();
+    if (particlesEl.children.length === 0) {
+      createParticles();
+    }
   } else {
     particlesEl.classList.remove('active');
   }
@@ -2088,7 +1791,7 @@ document.getElementById('particlesToggle').addEventListener('click', function() 
 
 document.getElementById('particleCountSlider').addEventListener('input', function() {
   settings.particleCount = parseInt(this.value);
-  document.getElementById('particleCountValue').textContent = settings.particleCount;
+  const particlesEl = document.getElementById('particles');
   if (settings.particles) {
     createParticles();
   }
@@ -2097,9 +1800,16 @@ document.getElementById('particleCountSlider').addEventListener('input', functio
 
 document.getElementById('particleSizeSlider').addEventListener('input', function() {
   settings.particleSize = parseInt(this.value);
-  document.getElementById('particleSizeValue').textContent = settings.particleSize;
-  if (settings.particles) {
-    createParticles();
+  document.documentElement.style.setProperty('--particle-size', settings.particleSize + 'px');
+  saveSettings();
+});
+
+document.getElementById('visualizerToggle').addEventListener('click', function() {
+  settings.visualizerEnabled = !settings.visualizerEnabled;
+  this.classList.toggle('active', settings.visualizerEnabled);
+  const visualizerContainer = document.querySelector('.visualizer-container');
+  if (visualizerContainer) {
+    visualizerContainer.style.display = settings.visualizerEnabled ? 'block' : 'none';
   }
   saveSettings();
 });
@@ -2107,26 +1817,6 @@ document.getElementById('particleSizeSlider').addEventListener('input', function
 document.getElementById('crossfadeToggle').addEventListener('click', function() {
   settings.crossfade = !settings.crossfade;
   this.classList.toggle('active', settings.crossfade);
-  saveSettings();
-});
-
-document.getElementById('normalizeToggle').addEventListener('click', function() {
-  settings.normalize = !settings.normalize;
-  this.classList.toggle('active', settings.normalize);
-  saveSettings();
-});
-
-document.getElementById('equalizerToggle').addEventListener('click', function() {
-  settings.showEqualizer = !settings.showEqualizer;
-  this.classList.toggle('active', settings.showEqualizer);
-  document.getElementById('equalizerSection').classList.toggle('show', settings.showEqualizer);
-  saveSettings();
-});
-
-document.getElementById('effectsToggle').addEventListener('click', function() {
-  settings.showEffects = !settings.showEffects;
-  this.classList.toggle('active', settings.showEffects);
-  document.getElementById('effectsSection').classList.toggle('show', settings.showEffects);
   saveSettings();
 });
 
@@ -2141,97 +1831,6 @@ document.getElementById('visualizerType').addEventListener('change', function() 
     visualizer.appendChild(bar);
   }
   saveSettings();
-});
-
-function updateMediaSwitch() {
-  if (isShowingVideo) {
-    mediaSwitch.textContent = t('showCover');
-  } else {
-    mediaSwitch.textContent = t('showVideo');
-  }
-}
-
-mediaSwitch.addEventListener('click', () => {
-  isShowingVideo = !isShowingVideo;
-  if (isShowingVideo && currentVideoUrl) {
-    coverImg.style.display = 'none';
-    videoPlayer.style.display = 'block';
-  } else {
-    videoPlayer.style.display = 'none';
-    coverImg.style.display = 'block';
-  }
-  updateMediaSwitch();
-});
-
-function setupEqualizer() {
-  if (!audioContext) return;
-  
-  const frequencies = [60, 170, 350, 1000, 3500];
-  eqFilters = frequencies.map(freq => {
-    const filter = audioContext.createBiquadFilter();
-    filter.type = 'peaking';
-    filter.frequency.value = freq;
-    filter.Q.value = 1;
-    filter.gain.value = 0;
-    return filter;
-  });
-  
-  bassBoostFilter = audioContext.createBiquadFilter();
-  bassBoostFilter.type = 'lowshelf';
-  bassBoostFilter.frequency.value = 200;
-  bassBoostFilter.gain.value = 0;
-}
-
-['eq60', 'eq170', 'eq350', 'eq1000', 'eq3500'].forEach((id, index) => {
-  document.getElementById(id).addEventListener('input', (e) => {
-    if (eqFilters[index]) {
-      eqFilters[index].gain.value = parseFloat(e.target.value);
-    }
-  });
-});
-
-document.getElementById('eqReset').addEventListener('click', () => {
-  ['eq60', 'eq170', 'eq350', 'eq1000', 'eq3500'].forEach((id, index) => {
-    document.getElementById(id).value = 0;
-    if (eqFilters[index]) {
-      eqFilters[index].gain.value = 0;
-    }
-  });
-});
-
-document.getElementById('reverbSlider').addEventListener('input', (e) => {
-  const value = parseFloat(e.target.value);
-  document.getElementById('reverbValue').textContent = value + '%';
-});
-
-document.getElementById('delaySlider').addEventListener('input', (e) => {
-  const value = parseFloat(e.target.value);
-  document.getElementById('delayValue').textContent = value + '%';
-});
-
-document.getElementById('distortionSlider').addEventListener('input', (e) => {
-  const value = parseFloat(e.target.value);
-  document.getElementById('distortionValue').textContent = value;
-});
-
-document.getElementById('bassBoostSlider').addEventListener('input', (e) => {
-  const value = parseFloat(e.target.value);
-  document.getElementById('bassBoostValue').textContent = value + 'dB';
-  if (bassBoostFilter) {
-    bassBoostFilter.gain.value = value;
-  }
-});
-
-document.getElementById('fxReset').addEventListener('click', () => {
-  document.getElementById('reverbSlider').value = 0;
-  document.getElementById('delaySlider').value = 0;
-  document.getElementById('distortionSlider').value = 0;
-  document.getElementById('bassBoostSlider').value = 0;
-  document.getElementById('reverbValue').textContent = '0%';
-  document.getElementById('delayValue').textContent = '0%';
-  document.getElementById('distortionValue').textContent = '0';
-  document.getElementById('bassBoostValue').textContent = '0dB';
-  if (bassBoostFilter) bassBoostFilter.gain.value = 0;
 });
 
 let recordingKey = null;
@@ -2302,10 +1901,8 @@ document.getElementById('resetSettings').addEventListener('click', () => {
     particleCount: 50,
     particleSize: 3,
     visualizerType: 'bars',
+    visualizerEnabled: true,
     crossfade: false,
-    normalize: false,
-    showEqualizer: false,
-    showEffects: false,
     keymap: {
       playpause: ' ',
       prev: 'ArrowLeft',
@@ -2318,6 +1915,7 @@ document.getElementById('resetSettings').addEventListener('click', () => {
   saveSettings();
   applySettings();
   updateLanguage();
+  document.documentElement.style.setProperty('--particle-size', '3px');
   visualizer.innerHTML = '';
   for (let i = 0; i < 32; i++) {
     const bar = document.createElement('div');
@@ -2329,16 +1927,14 @@ document.getElementById('resetSettings').addEventListener('click', () => {
 function createParticles() {
   const particlesEl = document.getElementById('particles');
   particlesEl.innerHTML = '';
+  document.documentElement.style.setProperty('--particle-size', settings.particleSize + 'px');
   for (let i = 0; i < settings.particleCount; i++) {
     const particle = document.createElement('div');
     particle.className = 'particle';
-    particle.style.width = settings.particleSize + 'px';
-    particle.style.height = settings.particleSize + 'px';
     particle.style.left = Math.random() * 100 + '%';
     particle.style.top = Math.random() * 100 + '%';
     particle.style.animationDelay = Math.random() * 10 + 's';
     particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
-    particle.style.boxShadow = `0 0 ${settings.particleSize * 3}px var(--accent)`;
     particlesEl.appendChild(particle);
   }
 }
@@ -2379,21 +1975,8 @@ function initAudioContext() {
   analyser = audioContext.createAnalyser();
   analyser.fftSize = settings.visualizerType === 'circular' ? 32 : 64;
   
-  setupEqualizer();
-  
   const source = audioContext.createMediaElementSource(audio);
-  
-  if (eqFilters.length > 0) {
-    source.connect(eqFilters[0]);
-    for (let i = 0; i < eqFilters.length - 1; i++) {
-      eqFilters[i].connect(eqFilters[i + 1]);
-    }
-    eqFilters[eqFilters.length - 1].connect(bassBoostFilter);
-  } else {
-    source.connect(bassBoostFilter);
-  }
-  
-  bassBoostFilter.connect(analyser);
+  source.connect(analyser);
   analyser.connect(audioContext.destination);
   
   const bufferLength = analyser.frequencyBinCount;
@@ -2405,10 +1988,14 @@ function initAudioContext() {
 function updateVisualizer() {
   animationId = requestAnimationFrame(updateVisualizer);
   
-  if (!analyser || !isPlaying) {
+  if (!analyser || !isPlaying || !settings.visualizerEnabled) {
     const bars = visualizer.querySelectorAll('.visualizer-bar');
     bars.forEach(bar => {
-      bar.style.height = '4px';
+      if (settings.visualizerType === 'circular') {
+        bar.style.height = '4px';
+      } else {
+        bar.style.height = '4px';
+      }
     });
     return;
   }
@@ -2424,9 +2011,7 @@ function updateVisualizer() {
     } else if (settings.visualizerType === 'wave') {
       const height = (value / 255) * 60 + 4;
       bar.style.height = height + 'px';
-    } else if (settings.visualizerType === 'spectrum') {
-      const height = (value / 255) * 70 + 4;
-      bar.style.height = height + 'px';
+      bar.style.borderRadius = '50%';
     } else {
       const height = (value / 255) * 70 + 4;
       bar.style.height = height + 'px';
@@ -2443,6 +2028,8 @@ function updateMediaSession(title, artist, artwork) {
       artwork: artwork ? [{ src: artwork, sizes: '512x512', type: 'image/png' }] : []
     });
     
+    navigator.mediaSession.setActionHandler('play', () => togglePlay());
+    navigator.mediaSession.setActionHandler('pause', () => togglePlay());
     navigator.mediaSession.setActionHandler('previoustrack', () => prevBtn.click());
     navigator.mediaSession.setActionHandler('nexttrack', () => nextBtn.click());
     navigator.mediaSession.setActionHandler('seekbackward', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); });
@@ -2623,7 +2210,6 @@ async function loadCover(coverId) {
     if (currentCoverUrl) URL.revokeObjectURL(currentCoverUrl);
     currentCoverUrl = URL.createObjectURL(f.blob);
     coverImg.src = currentCoverUrl;
-    coverImg.style.display = 'block';
   }
 }
 
@@ -2810,27 +2396,6 @@ async function playIndex(i) {
   currentFileUrls[fileRef.id] = URL.createObjectURL(fileRecord.blob);
   audio.src = currentFileUrls[fileRef.id];
   
-  if (fileRecord.type && fileRecord.type.startsWith('video')) {
-    if (currentVideoUrl) {
-      URL.revokeObjectURL(currentVideoUrl);
-    }
-    currentVideoUrl = currentFileUrls[fileRef.id];
-    videoPlayer.src = currentVideoUrl;
-    videoPlayer.load();
-    mediaSwitch.classList.add('show');
-    
-    if (isShowingVideo) {
-      coverImg.style.display = 'none';
-      videoPlayer.style.display = 'block';
-    }
-  } else {
-    mediaSwitch.classList.remove('show');
-    videoPlayer.style.display = 'none';
-    coverImg.style.display = 'block';
-    currentVideoUrl = null;
-    isShowingVideo = false;
-  }
-  
   if (fileRecord.type) {
     audio.type = fileRecord.type;
   }
@@ -2842,15 +2407,7 @@ async function playIndex(i) {
   nowMeta.textContent = fileRecord.type || fileRecord.blob.type || 'unknown';
   renderPlaylist();
   
-  if (settings.normalize) {
-    audio.volume = 0.8;
-    volumeSlider.value = 80;
-    volumeValue.textContent = '80%';
-    updateVolumeIcon(0.8);
-  } else {
-    audio.volume = volumeSlider.value / 100;
-  }
-  
+  audio.volume = volumeSlider.value / 100;
   audio.playbackRate = speedSlider.value / 100;
   
   updateMediaSession(fileRef.name, currentPlaylist.name, currentCoverUrl);
@@ -2865,9 +2422,6 @@ async function playIndex(i) {
     await audio.play();
     isPlaying = true;
     playBtn.textContent = '⏸';
-    if (isShowingVideo && videoPlayer.src) {
-      videoPlayer.play();
-    }
   } catch (err) {
     isPlaying = false;
     playBtn.textContent = '▶';
@@ -2891,10 +2445,6 @@ audio.addEventListener('timeupdate', () => {
   if (settings.crossfade) {
     applyCrossfade();
   }
-  
-  if (isShowingVideo && videoPlayer.src && Math.abs(videoPlayer.currentTime - audio.currentTime) > 0.3) {
-    videoPlayer.currentTime = audio.currentTime;
-  }
 });
 
 audio.addEventListener('ended', () => {
@@ -2917,7 +2467,6 @@ audio.addEventListener('ended', () => {
       audio.pause();
       isPlaying = false;
       playBtn.textContent = '▶';
-      if (videoPlayer.src) videoPlayer.pause();
       return;
     }
   }
@@ -2930,12 +2479,10 @@ function togglePlay() {
     audio.pause();
     isPlaying = false;
     playBtn.textContent = '▶';
-    if (videoPlayer.src) videoPlayer.pause();
   } else {
     audio.play();
     isPlaying = true;
     playBtn.textContent = '⏸';
-    if (isShowingVideo && videoPlayer.src) videoPlayer.play();
   }
 }
 
@@ -2997,12 +2544,7 @@ loopListBtn.addEventListener('click', () => {
 });
 
 seek.addEventListener('input', () => {
-  if (audio.src && !isNaN(seek.value)) {
-    audio.currentTime = seek.value;
-    if (isShowingVideo && videoPlayer.src) {
-      videoPlayer.currentTime = seek.value;
-    }
-  }
+  if (audio.src && !isNaN(seek.value)) audio.currentTime = seek.value;
 });
 
 function formatTime(s) {
@@ -3116,7 +2658,6 @@ async function cleanupFiles() {
 window.addEventListener('beforeunload', () => {
   if (animationId) cancelAnimationFrame(animationId);
   if (currentCoverUrl) try { URL.revokeObjectURL(currentCoverUrl); } catch (e) {}
-  if (currentVideoUrl) try { URL.revokeObjectURL(currentVideoUrl); } catch (e) {}
   for (const k in currentFileUrls) try { URL.revokeObjectURL(currentFileUrls[k]); } catch (e) {}
 });
 </script>
