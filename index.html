@@ -3117,6 +3117,11 @@ audio.addEventListener('timeupdate', () => {
   curTime.textContent = formatTime(audio.currentTime);
   durTime.textContent = formatTime(audio.duration);
   
+  // Actualizar localStorage en cada frame
+  localStorage.setItem('ybmp_current_time', Math.floor(audio.currentTime).toString());
+  localStorage.setItem('ybmp_duration', Math.floor(audio.duration).toString());
+  localStorage.setItem('ybmp_is_playing', isPlaying.toString());
+  
   if (settings.crossfade) {
     applyCrossfade();
   }
