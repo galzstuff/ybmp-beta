@@ -2838,53 +2838,45 @@ async function playIndex(i) {
   nowMeta.textContent = fileRecord.type || fileRecord.blob.type || 'unknown';
   renderPlaylist();
   
-  // Guardar en localStorage para PreMiD
-  saveCoverToStorage(); // <-- Agregar esta línea
-  
-  if (settings.normalize) {
-    audio.volume = 0.8;
-    volumeSlider.value = 80;
-    volumeValue.textContent = '80%';
-    updateVolumeIcon(0.8);
-  } else {
-    audio.volume = volumeSlider.value / 100;
+function saveCoverToStorage() {
+  if (!currentPlaylist || !currentPlaylist.coverId) {
+    localStorage.removeItem('ybmp_current_cover');
+    localStorage.removeItem('ybmp_current_playlist');
+    localStorage.removeItem('ybmp_current_track');
+    localStorage.removeItem('ybmp_is_playing');
+    localStorage.removeItem('ybmp_current_time');
+    localStorage.removeItem('ybmp_duration');
+    localStorage.removeItem('ybmp_start_timestamp');
+    return;
   }
   
-  audio.playbackRate = speedSlider.value / 100;
-  
-  updateMediaSession(fileRef.name, currentPlaylist.name, currentCoverUrl);
-
-  audio.onerror = function(e) {
-    isPlaying = false;
-    playBtn.textContent = '▶';
-    alert(t('alertPlayError') + (audio.error ? audio.error.message : 'unknown'));
-  };
-
   try {
-    await audio.play();
-    isPlaying = true;
-    playBtn.textContent = '⏸';
-    saveCoverToStorage(); // <-- Agregar esta línea
-  } catch (err) {
-    isPlaying = false;
-    playBtn.textContent = '▶';
-    console.warn('Autoplay failed:', err);
+    idbGet('files', currentPlaylist.coverId).then(fileRecord => {
+      if (fileRecord && fileRecord.blob) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          localStorage.setItem('ybmp_current_cover', reader.result);
+          localStorage.setItem('ybmp_current_playlist', currentPlaylist.name || 'Unknown Playlist');
+          localStorage.setItem('ybmp_current_track', document.getElementById('nowTitle').textContent || 'No track');
+          localStorage.setItem('ybmp_is_playing', isPlaying.toString());
+          localStorage.setItem('ybmp_current_time', Math.floor(audio.currentTime).toString());
+          localStorage.setItem('ybmp_duration', Math.floor(audio.duration).toString());
+          
+          // Guardar timestamp de inicio si está reproduciendo
+          if (isPlaying && !localStorage.getItem('ybmp_start_timestamp')) {
+            localStorage.setItem('ybmp_start_timestamp', Math.floor(Date.now() / 1000).toString());
+          } else if (!isPlaying) {
+            localStorage.removeItem('ybmp_start_timestamp');
+          }
+          
+          console.log('✓ PreMiD data synchronized');
+        };
+        reader.readAsDataURL(fileRecord.blob);
+      }
+    }).catch(e => console.error('Error reading cover:', e));
+  } catch (e) {
+    console.error('Error saving cover to storage:', e);
   }
-}
-
-// Actualizar cuando se pausa/reproduce
-function togglePlay() {
-  if (!audio.src) return;
-  if (isPlaying) {
-    audio.pause();
-    isPlaying = false;
-    playBtn.textContent = '▶';
-  } else {
-    audio.play();
-    isPlaying = true;
-    playBtn.textContent = '⏸';
-  }
-  saveCoverToStorage(); // <-- Agregar esta línea
 }
 
 function renderPlaylist() {
