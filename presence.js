@@ -10,12 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const presence = new Presence({
-    clientId: "1519435224470126774" // Reemplaza con tu Client ID
+    clientId: "1519435224470126774"
 });
 let startTime = Date.now();
 presence.on("UpdateData", () => __awaiter(void 0, void 0, void 0, function* () {
     const presenceData = {
-        largeImageText: "YBMP - Your Basic Music Player",
+        largeImageText: "YBMP - Your Basic Music Player (through beta ver.)",
         buttons: [
             {
                 label: "🎵 Listen Now",
