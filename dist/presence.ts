@@ -7,7 +7,7 @@ const presence = new Presence({
 presence.on("UpdateData", async () => {
     const presenceData = {
         largeImageKey: "ybmp_logo",
-        largeImageText: "YBMP - Your Basic Music Player",
+        largeImageText: "YBMP - Your Basic Music Player (through beta ver.)",
         smallImageKey: premid_1.Assets.Play,
     };
     try {
