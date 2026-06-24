@@ -1,0 +1,19 @@
+{
+  "author": {
+    "name": "galz",
+    "id": "tu_discord_id"
+  },
+  "contributors": [],
+  "service": "YBMP",
+  "altNames": ["Your Basic Music Player"],
+  "description": "A sleek music player with support for playlists and customizable themes",
+  "url": "galzstuff.github.io/ybmp",
+  "version": "0.5.0",
+  "logo": "https://galzstuff.github.io/ybmp-beta/ybmp_logo.png",
+  "thumbnail": "https://galzstuff.github.io/ybmp-beta/banner_ybmp.png",
+  "color": "#6366f1",
+  "tags": ["music", "player", "audio"],
+  "category": "music",
+  "iframe": true,
+  "iframeRegex": "^https?://(www\\.)?galzstuff\\.github\\.io/ybmp/?$"
+}
