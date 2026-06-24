@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, ActivityType } from 'premid'
 
 const presence = new Presence({
   clientId: '1519435224470126774',
@@ -6,17 +6,21 @@ const presence = new Presence({
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
+    type: ActivityType.LISTENING as any,
     largeImageKey: 'ybmp_logo',
-    largeImageText: 'YBMP - Your Basic Music Player',
+    largeImageText: 'YBMP - Your Basic Music Player (via beta ver.)',
     smallImageKey: Assets.Play,
   }
 
   try {
-    // Obtener datos de localStorage
     const coverBase64 = localStorage.getItem('ybmp_current_cover')
     const trackTitle = localStorage.getItem('ybmp_current_track') || 'No playing'
     const playlistName = localStorage.getItem('ybmp_current_playlist') || 'YBMP'
     const isPlayingStr = localStorage.getItem('ybmp_is_playing') || 'false'
+    const currentTime = parseInt(localStorage.getItem('ybmp_current_time') || '0')
+    const duration = parseInt(localStorage.getItem('ybmp_duration') || '0')
+    const startTimestamp = localStorage.getItem('ybmp_start_timestamp')
+
     const isPlaying = isPlayingStr === 'true'
 
     // Usar portada como imagen si existe
@@ -34,14 +38,28 @@ presence.on('UpdateData', async () => {
       presenceData.smallImageKey = Assets.Pause
       presenceData.smallImageText = 'Idle'
     } else {
-      // Playlist en reproducción
+      // Mostrar progreso de la canción
+      const timeStr = formatTime(currentTime)
+      const durationStr = formatTime(duration)
       presenceData.details = trackTitle
       presenceData.state = `📚 ${playlistName}`
 
       if (isPlaying) {
         presenceData.smallImageKey = Assets.Play
         presenceData.smallImageText = 'Playing'
-        presenceData.startTimestamp = Math.floor(Date.now() / 1000)
+        
+        // Mostrar progreso: 1:30 / 3:45
+        if (duration > 0) {
+          presenceData.smallImageText = `${timeStr} / ${durationStr}`
+        }
+
+        // Timestamp de inicio para que Discord muestre el tiempo restante
+        if (startTimestamp) {
+          presenceData.startTimestamp = parseInt(startTimestamp)
+        } else {
+          presenceData.startTimestamp = Math.floor(Date.now() / 1000)
+        }
+
         presenceData.buttons = [
           {
             label: '🎵 Listen Now',
@@ -54,7 +72,9 @@ presence.on('UpdateData', async () => {
         ]
       } else {
         presenceData.smallImageKey = Assets.Pause
-        presenceData.smallImageText = 'Paused'
+        presenceData.smallImageText = `Paused at ${timeStr} / ${durationStr}`
+        delete presenceData.startTimestamp
+
         presenceData.buttons = [
           {
             label: '🎵 Listen Now',
@@ -75,3 +95,11 @@ presence.on('UpdateData', async () => {
 
   presence.setActivity(presenceData)
 })
+
+function formatTime(seconds: number): string {
+  if (!isFinite(seconds) || seconds === undefined) return '0:00'
+  seconds = Math.floor(seconds)
+  const minutes = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  return `${minutes}:${secs < 10 ? '0' : ''}${secs}`
+}
