@@ -1,0 +1,12 @@
+{
+  "name": "ybmp-premid",
+  "version": "1.0.0",
+  "description": "PreMiD presence for YBMP",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "^5.9.3"
+  }
+}
