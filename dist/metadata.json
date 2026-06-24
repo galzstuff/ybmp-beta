@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.premid.app/metadata/1.17",
+  "apiVersion": 1,
+  "author": {
+    "id": "823875991729864725",
+    "name": "galzstuff"
+  },
+  "service": "YBMP",
+  "description": {
+    "en": "A sleek music player with support for playlists and customizable themes. Shows what you're listening to with Discord Rich Presence!"
+  },
+  "url": "https://galzstuff.github.io/ybmp-beta",
+  "regExp": "^https?://(www\\.)?galzstuff\\.github\\.io/ybmp-beta/?$",
+  "version": "1.0.0",
+  "logo": "https://galzstuff.github.io/ybmp-beta/logo.png",
+  "thumbnail": "https://galzstuff.github.io/ybmp-beta/thumbnail.png",
+  "color": "#6366f1",
+  "category": "music",
+  "tags": [
+    "music",
+    "player",
+    "audio",
+    "playlist"
+  ]
+}
