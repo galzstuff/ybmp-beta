@@ -3165,7 +3165,8 @@ function renderPlaylist() {
       if (wasCurrent) {
         audio.pause();
         audio.currentTime = 0;
-        audio.src = '';
+        audio.removeAttribute('src');
+        audio.load();
         isPlaying = false;
         playBtn.textContent = '▶';
         currentIndex = -1;
@@ -3384,11 +3385,32 @@ function togglePlay() {
 
 playBtn.addEventListener('click', () => togglePlay());
 
-stopBtn.addEventListener('click', () => {
+function clearCurrentPlayback() {
   audio.pause();
+  audio.removeAttribute('src');
+  audio.load();
   audio.currentTime = 0;
+  currentIndex = -1;
   isPlaying = false;
   playBtn.textContent = '▶';
+  if (currentCoverUrl) {
+    URL.revokeObjectURL(currentCoverUrl);
+    currentCoverUrl = null;
+  }
+  currentPlaylist = null;
+  coverImg.src = '';
+  nowTitle.textContent = t('selectPlaylist');
+  nowMeta.textContent = '';
+  seek.max = 0;
+  seek.value = 0;
+  curTime.textContent = '0:00';
+  durTime.textContent = '0:00';
+  renderLists();
+  renderPlaylist();
+}
+
+stopBtn.addEventListener('click', () => {
+  clearCurrentPlayback();
 });
 
 prevBtn.addEventListener('click', () => {
