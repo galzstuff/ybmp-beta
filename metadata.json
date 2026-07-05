@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.premid.app/metadata/1.17",
+  "apiVersion": 1,
+  "author": {
+    "id": "823875991729864725",
+    "name": "galzstuff (galz)"
+  },
+  "service": "YBMP",
+  "description": {
+    "en": "a simple web music player"
+  },
+  "url": "galzstuff.github.io/ybmp/",
+  "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*galzstuff[.]github[.]io[/]ybmp[/]",
+  "version": "0.6.0",
+  "logo": "https://galzstuff.github.io/ybmp/ybmp_logo.png",
+  "thumbnail": "https://galzstuff.github.io/ybmp/banner_ybmp.png",
+  "color": "#B32CE0",
+  "category": "music",
+  "tags": [
+    "audio",
+    "music"
+  ]
+}
