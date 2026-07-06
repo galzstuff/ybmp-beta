@@ -24,9 +24,9 @@ if (!trackTitle) {
 const presenceData: PresenceData = {
   type: ActivityType.Listening,
   details: trackTitle,
-  state: playlistName,
+  state: `Listening on playlist "${playlistName}"`,
   largeImageKey: ActivityAssets.Logo,
-  largeImageText: 'YBMP - Your Basic Music Player',
+  largeImageText: 'galzstuff.github.io/ybmp',
   buttons: [
     {
       label: 'cool player where this person is listening to music at',
@@ -37,7 +37,7 @@ const presenceData: PresenceData = {
 
 if (isPlaying) {
   presenceData.smallImageKey = Assets.Play
-  presenceData.smallImageText = 'Reproduciendo'
+  presenceData.smallImageText = 'Playing'
 
 if (Number.isFinite(duration) && duration > 0) {
   [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
@@ -48,7 +48,7 @@ if (Number.isFinite(duration) && duration > 0) {
 }
 else {
   presenceData.smallImageKey = Assets.Pause
-  presenceData.smallImageText = 'Pausado'
+  presenceData.smallImageText = 'Paused'
 }
 
 presence.setActivity(presenceData)
