@@ -1,1 +1,1 @@
-Beta branch of the [Your Basic Music Player (YBMP](https://galzstuff.github.io/ybmp) music player made so it can also be a webpage and where other stuff not related to the main thing (e.g. PreMiD status files) are uploaded
+Beta branch of the [Your Basic Music Player (YBMP)](https://galzstuff.github.io/ybmp) music player made so it can also be a webpage and where other stuff not related to the main thing (e.g. [PreMiD status files](https://github.com/galzstuff/ybmp-beta/tree/premid-files)) are uploaded
