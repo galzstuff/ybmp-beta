@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="icon" href="https://galzstuff.github.io/ybmp/favicon.ico" type="image/x-icon">
-  <title>YBMP v0.6</title>
+  <link rel="icon" href="https://galzstuff.github.io/mejober/favicon.ico" type="image/x-icon">
+  <title>mejóber v0.6</title>
   <style>
+    /* standard colors, customizable via settings later */
     :root{
       --bg-primary: #0a0e27;
       --bg-secondary: #151a35;
@@ -34,6 +35,7 @@
       padding: 0;
     }
     
+    /* some default values for the body */
     body {
       background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
       color: var(--text-primary);
@@ -44,6 +46,7 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
     
+    /* particles values and anims */
     #particles {
       position: fixed;
       top: 0;
@@ -69,7 +72,7 @@
       opacity: 0.6;
       animation: float 10s infinite;
     }
-    
+
     @keyframes float {
       0%, 100% { transform: translateY(0) translateX(0); }
       25% { transform: translateY(-20px) translateX(10px); }
@@ -77,6 +80,9 @@
       75% { transform: translateY(-20px) translateX(5px); }
     }
     
+    /* end of particle stuff */
+
+    /* container settings... i should probably change these */
     .container {
       max-width: 1400px;
       margin: 0 auto;
@@ -84,6 +90,8 @@
       z-index: 1;
     }
     
+
+    /* header stuff */
     .header {
       text-align: center;
       margin-bottom: 32px;
@@ -128,6 +136,9 @@
       font-size: 16px;
     }
     
+    /* end of header stuff */
+
+    /* settings n other modals */
     .settings-btn {
       position: absolute;
       top: 50%;
@@ -299,6 +310,10 @@
       margin-top: 4px;
     }
     
+    /* end of settings and modals */
+
+    /* toggles, selections and other things of the sort */
+
     .toggle-switch {
       position: relative;
       width: 48px;
@@ -374,6 +389,8 @@
       50% { opacity: 0.7; }
     }
     
+    /* end of toggles, selections and inputs */
+
     .main-grid {
       display: flex;
       flex-direction: column;
@@ -1181,8 +1198,8 @@
       <div class="header-top">
         <button class="settings-btn" id="settingsBtn">⚙️</button>
         <div class="header-content">
-          <h1 id="appTitle">galz' YBMP</h1>
-          <p id="appSubtitle">(stands for Your Basic Music Player!)</p>
+          <h1 id="appTitle">mejóber</h1>
+          <p id="appSubtitle">made by @galzstuff on github!</p>
         </div>
       </div>
     </div>
@@ -1206,6 +1223,14 @@
               <option value="en">english</option>
               <option value="es">español</option>
             </select>
+          </div>
+
+          <div class="setting-item">
+            <div>
+              <div class="setting-label" id="labelPreMiD">Discord presence</div>
+              <div class="setting-description" id="descPreMiD">share playback status with PreMiD</div>
+            </div>
+            <div class="toggle-switch" id="preMiDToggle"></div>
           </div>
         </div>
 
@@ -1623,12 +1648,14 @@
 <script>
 const translations = {
   en: {
-    appTitle: "galz' YBMP",
-    appSubtitle: "(stands for Your Basic Music Player!)",
+    appTitle: "mejóber",
+    appSubtitle: "made by @galzstuff on github!",
     modalTitle: "⚙️ settings",
     sectionGeneral: "🌐 general",
     labelLanguage: "language",
     descLanguage: "choose interface language",
+    labelPreMiD: "Discord presence",
+    descPreMiD: "share playback status with PreMiD",
     sectionAppearance: "🎨 appearance",
 
     labelParticles: "particle effects",
@@ -1729,12 +1756,14 @@ const translations = {
     stop: "stop"
   },
   es: {
-    appTitle: "YBMP, por galz",
-    appSubtitle: "(¡significa Your Basic Music Player, o Tu Reproductor de Música Básico en español!)",
+    appTitle: "mejóber",
+    appSubtitle: "¡hecho por @galzstuff en github!",
     modalTitle: "⚙️ configuración",
     sectionGeneral: "🌐 general",
     labelLanguage: "idioma",
     descLanguage: "elegir idioma de la interfaz",
+    labelPreMiD: "presencia de Discord",
+    descPreMiD: "compartir el estado de reproducción con PreMiD",
     sectionAppearance: "🎨 apariencia",
 
     labelParticles: "efectos de partículas",
@@ -1857,6 +1886,7 @@ let customThemeStyleEl = null;
 
 let settings = {
   language: 'en',
+  preMiD: true,
   particles: false,
   visualizerType: 'bars',
   crossfade: false,
@@ -1952,6 +1982,8 @@ function updateLanguage() {
   document.getElementById('sectionGeneral').textContent = t('sectionGeneral');
   document.getElementById('labelLanguage').textContent = t('labelLanguage');
   document.getElementById('descLanguage').textContent = t('descLanguage');
+  document.getElementById('labelPreMiD').textContent = t('labelPreMiD');
+  document.getElementById('descPreMiD').textContent = t('descPreMiD');
   document.getElementById('sectionAppearance').textContent = t('sectionAppearance');
   document.getElementById('labelParticles').textContent = t('labelParticles');
   document.getElementById('descParticles').textContent = t('descParticles');
@@ -2071,6 +2103,7 @@ function applySettings() {
   visualizer.className = 'visualizer ' + settings.visualizerType;
   
   document.getElementById('particlesToggle').classList.toggle('active', settings.particles);
+  document.getElementById('preMiDToggle').classList.toggle('active', settings.preMiD);
   document.getElementById('crossfadeToggle').classList.toggle('active', settings.crossfade);
   document.getElementById('themeSelect').value = settings.theme || 'purple';
   document.getElementById('themeModeSelect').value = settings.themeMode || 'simple';
@@ -2761,6 +2794,17 @@ document.getElementById('particlesToggle').addEventListener('click', function() 
     particlesEl.classList.remove('active');
   }
   updateParticleControlsUI();
+  saveSettings();
+});
+
+document.getElementById('preMiDToggle').addEventListener('click', function() {
+  settings.preMiD = !settings.preMiD;
+  this.classList.toggle('active', settings.preMiD);
+  if (settings.preMiD) {
+    syncPreMiDState();
+  } else {
+    clearPreMiDState();
+  }
   saveSettings();
 });
 
@@ -3747,7 +3791,23 @@ window.addEventListener('beforeunload', () => {
   for (const k in currentFileUrls) try { URL.revokeObjectURL(currentFileUrls[k]); } catch (e) {}
 });
 
+const preMiDStateKeys = [
+  'ybmp_current_track',
+  'ybmp_current_playlist',
+  'ybmp_is_playing',
+  'ybmp_current_time',
+  'ybmp_duration'
+];
+
+function clearPreMiDState() {
+  try {
+    preMiDStateKeys.forEach(key => localStorage.removeItem(key));
+  } catch (e) {
+  }
+}
+
 function syncPreMiDState() {
+  if (!settings.preMiD) return;
   try {
     const title = (currentIndex >= 0 && currentPlaylist?.files?.[currentIndex])
       ? currentPlaylist.files[currentIndex].name
