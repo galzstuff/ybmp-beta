@@ -5,12 +5,12 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://galzstuff.github.io/ybmp/ybmp_logo.png',
+  Logo = 'https://galzstuff.github.io/mejober/ybmp_logo.png',
 }
 
 presence.on('UpdateData', async () => {
   const trackTitle = localStorage.getItem('ybmp_current_track') || ''
-  const playlistName = localStorage.getItem('ybmp_current_playlist') || 'YBMP'
+  const playlistName = localStorage.getItem('ybmp_current_playlist') || 'mejóber'
   const isPlaying = localStorage.getItem('ybmp_is_playing') === 'true'
 const currentTime = Number.parseInt(localStorage.getItem('ybmp_current_time') || '0', 10)
 const duration = Number.parseInt(localStorage.getItem('ybmp_duration') || '0', 10)
@@ -26,11 +26,11 @@ const presenceData: PresenceData = {
   details: trackTitle,
   state: `Listening on playlist "${playlistName}"`,
   largeImageKey: ActivityAssets.Logo,
-  largeImageText: 'galzstuff.github.io/ybmp',
+  largeImageText: 'galzstuff.github.io/mejober',
   buttons: [
     {
       label: 'cool player where this person is listening to music at',
-      url: 'https://galzstuff.github.io/ybmp/',
+      url: 'https://galzstuff.github.io/mejober/',
     },
   ],
 }
