@@ -5,15 +5,15 @@
     "id": "823875991729864725",
     "name": "galzstuff (galz)"
   },
-  "service": "YBMP",
+  "service": "mejóber",
   "description": {
     "en": "a simple web music player"
   },
-  "url": "galzstuff.github.io/ybmp/",
-  "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*galzstuff[.]github[.]io[/]ybmp[/]",
+  "url": "galzstuff.github.io/mejober/",
+  "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*galzstuff[.]github[.]io[/]mejober[/]",
   "version": "0.6.0",
-  "logo": "https://galzstuff.github.io/ybmp/ybmp_logo.png",
-  "thumbnail": "https://galzstuff.github.io/ybmp/banner_ybmp.png",
+  "logo": "https://galzstuff.github.io/mejober/ybmp_logo.png",
+  "thumbnail": "https://galzstuff.github.io/mejober/banner_ybmp.png",
   "color": "#B32CE0",
   "category": "music",
   "tags": [
