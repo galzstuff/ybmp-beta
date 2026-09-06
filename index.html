@@ -4443,33 +4443,65 @@ function registerManifest() {
   const manifest = {
     name: 'mejóber',  
     short_name: 'mejóber',
-    start_url: '.',
+    start_url: './index.html',
     display: 'standalone',
     background_color: '#0a0e27',
     theme_color: '#0a0e27',
     icons: [  
-      { src: 'https://github.com/galzstuff/ybmp-beta/blob/main/ybmp_logo-512x512.png?raw=true', sizes: '512x512', type: 'image/png' },
+      { 
+        src: 'https://raw.githubusercontent.com/galzstuff/ybmp-beta/ybmp_logo-192x192.png', 
+        sizes: '192x192', 
+        type: 'image/png' 
+      },
+      { 
+        src: 'https://raw.githubusercontent.com/galzstuff/ybmp-beta/ybmp_logo-512x512.png', 
+        sizes: '512x512', 
+        type: 'image/png' 
+      }
     ],
     screenshots: [
-    {
-      src: 'https://github.com/galzstuff/ybmp-beta/blob/main/banner_ybmp.png?raw=true',
-      sizes: '2560x1440',
-      type: 'image/png',
-      form_factor: 'wide'
-    }
+      {
+        src: 'https://raw.githubusercontent.com/galzstuff/ybmp-beta/banner_ybmp.png',
+        sizes: '2560x1440',
+        type: 'image/png',
+        form_factor: 'wide'
+      },
+      {
+        src: 'https://raw.githubusercontent.com/galzstuff/ybmp-beta/banner_ybmp.png',
+        sizes: '2560x1440',
+        type: 'image/png',
+        form_factor: 'narrow'
+      }
     ] 
   };
 
-  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
   const link = document.createElement('link');
   link.rel = 'manifest';
   link.href = URL.createObjectURL(blob);
   document.head.appendChild(link);
 }
 
+
 function registerServiceWorker() {
   if (location.protocol === 'file:' || !('serviceWorker' in navigator)) return;
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((registration) => {
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('New update available! Please refresh the page.');
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        console.error('Service Worker registration failed:', error);
+      });
+  });
 }
 </script>
 </body>
