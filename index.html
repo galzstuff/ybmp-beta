@@ -2029,7 +2029,7 @@ const translations = {
 };
 
 /* indexeddb configuration and global state */
-const DB_NAME = 'YBMP_DB_BETA';
+const DB_NAME = 'YBMP_DB_v2';
 const DB_VERSION = 2;
 let db;
 let playlists = [];
@@ -4440,16 +4440,15 @@ function registerManifest() {
   if (location.protocol === 'file:') return;
 
   const manifest = {
-    name: 'mejóber',
+    name: 'mejóber',  
     short_name: 'mejóber',
     start_url: '.',
     display: 'standalone',
     background_color: '#0a0e27',
     theme_color: '#0a0e27',
     icons: [  
-      { src: 'https://github.com/galzstuff/ybmp-beta/blob/main/ybmp_logo.png?raw=true', sizes: '192x192', type: 'image/png' },
-      { src: 'https://github.com/galzstuff/ybmp-beta/blob/main/ybmp_logo.png?raw=true', sizes: '512x512', type: 'image/png' }
-    ]
+      { src: 'https://github.com/galzstuff/ybmp-beta/blob/main/ybmp_logo.png?raw=true', sizes: '500x500', type: 'image/png' }
+  ]
   };
 
   const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
