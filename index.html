@@ -4447,8 +4447,16 @@ function registerManifest() {
     background_color: '#0a0e27',
     theme_color: '#0a0e27',
     icons: [  
-      { src: 'https://github.com/galzstuff/ybmp-beta/blob/main/ybmp_logo-512x512.png?raw=true', sizes: '512x512', type: 'image/png' }
-  ]
+      { src: 'https://github.com/galzstuff/ybmp-beta/blob/main/ybmp_logo-512x512.png?raw=true', sizes: '512x512', type: 'image/png' },
+    ],
+    screenshots: [
+    {
+      src: 'https://github.com/galzstuff/ybmp-beta/blob/main/banner_ybmp.png?raw=true',
+      sizes: '2560x1440', // usa las dimensiones reales de tu captura
+      type: 'image/png',
+      form_factor: 'wide'
+    }
+    ] 
   };
 
   const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
