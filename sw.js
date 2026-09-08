@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mejober-v0.8.1.0-BETA';
+const CACHE_NAME = 'mejober-v0.8.2-BETA';
 const APP_SHELL = [
   './',
   './index.html',
